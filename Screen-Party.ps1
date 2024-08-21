@@ -1,6 +1,6 @@
 Add-Type -AssemblyName System.Windows.Forms
 
-$duration = 10  # Duration of the effect in seconds
+$duration = 300  # Duration of the effect in seconds
 $interval = 100  # Interval between flickers in milliseconds
 $color1 = "Black"
 $color2 = "Green"
